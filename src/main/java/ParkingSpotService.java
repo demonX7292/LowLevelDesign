@@ -1,5 +1,6 @@
 package main.java;
 
+import main.java.parkingspotservice.base_models.Invoice;
 import main.java.parkingspotservice.base_models.ParkingSpot;
 import main.java.parkingspotservice.base_models.ParkingTicket;
 import main.java.parkingspotservice.base_models.Vehicle;
@@ -46,11 +47,15 @@ public class ParkingSpotService {
         EntryGate entryGate = EntryGate.getEntryGate(parkingSpotManager);
         ExitGate exitGate = ExitGate.getExitGate(parkingSpotManager, invoiceManager);
 
-        Vehicle vehicle = new Vehicle(1234, VehicleType.TWO_WHEELER);
+
+        Vehicle vehicle = new Vehicle(1234, VehicleType.BIG_VEHICLE);
         try {
             ParkingTicket ticket = entryGate.generateParkingTicket(vehicle, CLOSEST_TO_EXIT.toString());
             System.out.println(ticket.toString());
-        } catch (ParkingSpotNotAvailableException e) {
+            Thread.sleep(1000 * 120);
+            Invoice invoice = exitGate.unparkVehicleAndGenerateInvoice(ticket);
+            System.out.println(invoice.toString());
+        } catch (ParkingSpotNotAvailableException | InterruptedException e) {
             System.out.println(e.getMessage());
         }
 

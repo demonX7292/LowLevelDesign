@@ -64,4 +64,11 @@ public class Invoice {
             return new Invoice(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "vehicle : " + vehicle.toString() + "\n entry : " + entryTime.toString()
+                + "\n exit : " + exitTime.toString() + "\n parking spot : " + parkingSpot.toString()
+                + "\n price to pay : " + priceToPay;
+    }
 }
